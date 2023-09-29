@@ -74,15 +74,19 @@
   config = mkIf cfg.enable {
     systemd.services."lightspeed-webrtc" = {
       wantedBy = [ "multi-user.target" ];
-      Restart = "on-failure";
-      ExecStart = "${cfg.packages.lightspeed-webrtc}/bin/lightspeed-webrtc -addr ${cfg.webrtc.bindAddress} -ip ${cfg.webrtc.publicIp} -ports ${cfg.webrtc.webrtcPorts} -rtp-port ${cfg.webrtc.rtpPort} -ws-port ${cfg.webrtc.websocketPort}";
-      DynamicUser = "yes";
+      serviceConfig = {
+        Restart = "on-failure";
+        ExecStart = "${cfg.packages.lightspeed-webrtc}/bin/lightspeed-webrtc -addr ${cfg.webrtc.bindAddress} -ip ${cfg.webrtc.publicIp} -ports ${cfg.webrtc.webrtcPorts} -rtp-port ${cfg.webrtc.rtpPort} -ws-port ${cfg.webrtc.websocketPort}";
+        DynamicUser = "yes";
+      };
     };
     systemd.services."lightspeed-ingest" = {
       wantedBy = [ "multi-user.target" ];
-      Restart = "on-failure";
-      ExecStart = "${cfg.packages.lightspeed-ingest}/bin/lightspeed-ingest --address ${cfg.ingest.bindAddress} --stream-key ${cfg.ingest.streamKey}";
-      DynamicUser = "yes";
+      serviceConfig = {
+        Restart = "on-failure";
+        ExecStart = "${cfg.packages.lightspeed-ingest}/bin/lightspeed-ingest --address ${cfg.ingest.bindAddress} --stream-key ${cfg.ingest.streamKey}";
+        DynamicUser = "yes";
+      };
     };
     services.nginx.virtualHosts.${cfg.domain} = {
       locations."/".root = "${cfg.packages.lightspeed-frontend}/lib/node_modules/lightspeed-react/public/";
