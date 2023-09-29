@@ -1,4 +1,4 @@
-{ self, config, lib, pkgs } : 
+{ self, config, lib, pkgs, ... } : 
   with lib;
   let cfg = config.stary.services.lightspeed;
   in {
