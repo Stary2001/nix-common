@@ -7,9 +7,18 @@
     enable = mkEnableOption "Enables the Lightspeed streaming service";
 
     packages = {
-      ingest = self.packages.${pkgs.system}.lightspeed-ingest;
-      webrtc = self.packages.${pkgs.system}.lightspeed-webrtc;
-      frontend = self.packages.${pkgs.system}.lightspeed-frontend;
+      ingest = mkOption rec {
+        type = types.package;
+        default = self.packages.${pkgs.system}.lightspeed-ingest;
+      };
+      webrtc = mkOption rec {
+        type = types.package;
+        default = self.packages.${pkgs.system}.lightspeed-webrtc;
+      };
+      frontend = mkOption rec {
+        type = types.package;
+        default = self.packages.${pkgs.system}.lightspeed-frontend;
+      };
     };
        
     ingest = {
