@@ -1,45 +1,46 @@
 {
   description = "common system configuration and packages and such";
 
-  inputs = {
-    nixpkgs.url = "nixpkgs";
-    naersk.url = "github:nix-community/naersk/master";
-    utils.url = "github:numtide/flake-utils";
-  };
+  inputs = {};
 
-  outputs = { self, nixpkgs, utils, naersk }:
-  utils.lib.eachDefaultSystem(system:
-      let pkgs = import nixpkgs { inherit system; };
-          naersk-lib = pkgs.callPackage naersk {}; in {
-      packages = {
-        lightspeed-ingest = pkgs.callPackage ./packages/lightspeed-ingest.nix { naersk-lib = naersk-lib; };
-        lightspeed-webrtc = pkgs.callPackage ./packages/lightspeed-webrtc.nix {};
-        lightspeed-frontend = pkgs.callPackage ./packages/lightspeed-frontend.nix {};
-        #broadcast-box-backend = pkgs.callPackage ./packages/broadcast-box-backend.nix {};
-        #broadcast-box-frontend = pkgs.callPackage ./packages/broadcast-box-frontend.nix {};
+  outputs = inputs:
+  {
+      homeModules = {
+        base = {pkgs, ...}: {
+          _module.args.commonDir = ./.;
+          imports = [./user/base.nix];
+        };
+        nix = {pkgs, ...}: {
+          _module.args.commonDir = ./.;
+          imports = [./user/base.nix];
+        };
       };
-  }) // {
+
       nixosModules = {
         nine-net = {pkgs, ...}: {
-          imports = [./9net.nix];
+          imports = [./system/9net.nix];
         };
         avahi = {pkgs, ...}: {
-          imports = [./avahi.nix];
+          imports = [./system/avahi.nix];
         };
         locale = {pkgs, ...}: {
-          imports = [./locale.nix];
+          imports = [./system/locale.nix];
         };
         ssh-keys = {pkgs, ...}: {
-          imports = [./ssh-keys.nix];
+          imports = [./system/ssh-keys.nix];
         };
         wait-online-any = {...}: {
           systemd.network.wait-online.anyInterface = true;
 	};
+        nix = {...}: {
+          _module.args.commonDir = ./.;
+          imports = [./system/nix.nix];
+        };
         service-lightspeed = { pkgs, ... }: {
-          imports = [./service/lightspeed.nix];
+          imports = [./system/service/lightspeed.nix];
         };
         #service-broadcast-box = { pkgs, ... }: {
-        #  imports = [./service/broadcast-box.nix];
+        #  imports = [./system/service/broadcast-box.nix];
         #};
       };
   };

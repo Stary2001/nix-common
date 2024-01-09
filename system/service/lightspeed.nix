@@ -1,4 +1,4 @@
-{ self, config, lib, pkgs, ... } : 
+{ config, lib, pkgs, ... } : 
   with lib;
   let cfg = config.stary.services.lightspeed;
   in {
@@ -9,15 +9,15 @@
     packages = {
       ingest = mkOption rec {
         type = types.package;
-        default = self.packages.${pkgs.system}.lightspeed-ingest;
+        default = pkgs.lightspeed-ingest;
       };
       webrtc = mkOption rec {
         type = types.package;
-        default = self.packages.${pkgs.system}.lightspeed-webrtc;
+        default = pkgs.lightspeed-webrtc;
       };
       frontend = mkOption rec {
         type = types.package;
-        default = self.packages.${pkgs.system}.lightspeed-frontend;
+        default = pkgs.lightspeed-frontend;
       };
     };
        
