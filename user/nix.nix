@@ -10,14 +10,14 @@
     nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
   };
 
-  nixpkgs.config = import (commonDir + "/common/nixpkgs/config.nix");
-  xdg.configFile."nixpkgs/config.nix".source = commonDir + "/common/nixpkgs/config.nix";
+  nixpkgs.config = import (commonDir + "/nixpkgs/config.nix");
+  xdg.configFile."nixpkgs/config.nix".source = commonDir + "/nixpkgs/config.nix";
 
-  nixpkgs.overlays = import (commonDir + "/common/nixpkgs/overlays.nix") { inherit unstable; here = commonDir + "/common/nixpkgs"; };
+  nixpkgs.overlays = import (commonDir + "/nixpkgs/overlays.nix") { inherit unstable; here = commonDir + "/common/nixpkgs"; };
   xdg.configFile."nixpkgs/overlays.nix".text = let
     inherit (pkgs.lib) hasPrefix removePrefix;
     inherit (pkgs.lib.strings) escapeNixString;
-    raw = builtins.readFile (commonDir + "/common/nixpkgs/overlays.nix");
+    raw = builtins.readFile (commonDir + "/nixpkgs/overlays.nix");
     prefix = "{ unstable, here }:\n";
     processed = assert hasPrefix prefix raw; removePrefix prefix raw;
   in ''
