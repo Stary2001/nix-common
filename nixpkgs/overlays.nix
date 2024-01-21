@@ -1,4 +1,5 @@
-{ unstable, here }: [
+{ unstable, here }:
+[
   (self: super: {
     # Add packages
     lightspeed-ingest = super.callPackage ./packages/lightspeed-ingest.nix {};
