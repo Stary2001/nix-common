@@ -7,7 +7,6 @@
   {
       homeModules = {
         base = {pkgs, ...}: {
-          _module.args.commonDir = ./.;
           imports = [./user/base.nix];
         };
         nix = {pkgs, ...}: {
