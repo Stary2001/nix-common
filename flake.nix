@@ -12,7 +12,7 @@
         };
         nix = {pkgs, ...}: {
           _module.args.commonDir = ./.;
-          imports = [./user/base.nix];
+          imports = [./user/nix.nix];
         };
       };
 
