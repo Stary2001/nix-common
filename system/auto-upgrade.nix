@@ -1,13 +1,13 @@
-{config, pkgs, ...}: {
+{config, pkgs, ...}: let flakePath = "/home/stary/sys-${config.networking.hostName}"; in {
   system.autoUpgrade = {
     enable = true;
     allowReboot = true;
-    flake = "/home/stary/sys-${config.networking.hostName}";
+    flake = "${flakePath}#default";
     flags = [];
   };
   systemd.services.nixos-upgrade = {
     preStart = ''
-      ${pkgs.sudo}/bin/sudo -u stary ${pkgs.bash}/bin/bash -c "cd ${config.system.autoUpgrade.flake}; ${pkgs.git}/bin/git pull --rebase"
+      ${pkgs.sudo}/bin/sudo -u stary ${pkgs.bash}/bin/bash -c "cd ${flakePath}; ${pkgs.git}/bin/git pull --rebase"
     '';
   };
 }
