@@ -8,6 +8,9 @@
       enable = true;
       userName = "Chloe Bethel";
       userEmail = "chloe@9net.org";
+      extraConfig = {
+        init.defaultBranch = "main";
+      };
     };
     programs.htop.enable = true;
     programs.tmux.enable = true;
