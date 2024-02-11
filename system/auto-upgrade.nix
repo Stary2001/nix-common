@@ -6,8 +6,8 @@
     flags = [];
   };
   systemd.services.nixos-upgrade = {
-    preStart = '''
+    preStart = ''
       ${pkgs.sudo}/bin/sudo -u stary ${pkgs.git}/bin/git pull --rebase
-    ''';
+    '';
   };
 }
