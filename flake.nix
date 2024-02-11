@@ -20,6 +20,9 @@
         nine-net = {pkgs, ...}: {
           imports = [./system/9net.nix];
         };
+        auto-upgrade = {pkgs, ...}: {
+          imports = [./system/auto-upgrade.nix];
+        };
         avahi = {pkgs, ...}: {
           imports = [./system/avahi.nix];
         };
