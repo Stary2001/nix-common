@@ -17,6 +17,9 @@
           _module.args.commonDir = ./.;
           imports = [./system/locale.nix ./system/ssh-keys.nix ./system/nix.nix];
         };
+        prometheus-exporter = {pkgs, ...}: {
+          imports = [./system/prometheus-exporter.nix];
+        };
         nine-net = {pkgs, ...}: {
           imports = [./system/9net.nix];
         };
