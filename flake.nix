@@ -8,7 +8,7 @@
       homeModules = {
         base = {pkgs, ...}: {
           _module.args.commonDir = ./.;
-          imports = [./user/base.nix ./user/nix.nix];
+          imports = [./user/base.nix ./user/nix.nix ./user/dev.nix];
         };
       };
 
