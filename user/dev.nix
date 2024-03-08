@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, osConfig, ... }: {
   services.lorri.enable = true;
   programs.direnv = { 
     enable = true;
@@ -6,8 +6,8 @@
   };
   programs.bash.shellAliases = {
     "rebuild-system" =
-      "cd /home/stary/${config.networking.hostName}; sudo nixos-rebuild switch --flake .#default";
+      "cd /home/stary/${osConfig.networking.hostName}; sudo nixos-rebuild switch --flake .#default";
     "rebuild-home" =
-      "cd /home/stary/${config.networking.hostName}; home-manager switch --flake .#default";
+      "cd /home/stary/${osConfig.networking.hostName}; home-manager switch --flake .#default";
   };
 }
