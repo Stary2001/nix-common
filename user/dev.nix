@@ -4,6 +4,7 @@
     enable = true;
     enableBashIntegration = true;
   };
+  programs.bash.enable = true;
   programs.bash.shellAliases = {
     "rebuild-system" =
       "cd /home/stary/${osConfig.networking.hostName}; sudo nixos-rebuild switch --flake .#default";
