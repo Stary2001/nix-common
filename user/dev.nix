@@ -7,8 +7,8 @@
   programs.bash.enable = true;
   programs.bash.shellAliases = {
     "rebuild-system" =
-      "cd /home/stary/${osConfig.networking.hostName}; sudo nixos-rebuild switch --flake .#default";
+      "cd /home/stary/sys-${osConfig.networking.hostName}; sudo nixos-rebuild switch --flake .#default";
     "rebuild-home" =
-      "cd /home/stary/${osConfig.networking.hostName}; home-manager switch --flake .#default";
+      "cd /home/stary/sys-${osConfig.networking.hostName}; home-manager switch --flake .#default";
   };
 }
