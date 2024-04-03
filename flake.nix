@@ -20,6 +20,9 @@
       prometheus-exporter = { pkgs, ... }: {
         imports = [ ./system/prometheus-exporter.nix ];
       };
+      loki = { pkgs, ... }: {
+        imports = [ ./system/loki.nix ];
+      };
       nine-net = { pkgs, ... }: { imports = [ ./system/9net.nix ]; };
       auto-upgrade = { pkgs, ... }: {
         imports = [ ./system/auto-upgrade.nix ];
