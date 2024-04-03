@@ -1,9 +1,11 @@
-{config, pkgs, ...}: let flakePath = "/home/stary/sys-${config.networking.hostName}"; in {
+{ config, pkgs, ... }:
+let flakePath = "/home/stary/sys-${config.networking.hostName}";
+in {
   system.autoUpgrade = {
     enable = true;
     allowReboot = true;
     flake = "${flakePath}#default";
-    flags = [];
+    flags = [ ];
   };
   systemd.services.nixos-upgrade = {
     preStart = ''

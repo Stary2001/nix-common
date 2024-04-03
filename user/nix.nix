@@ -11,18 +11,30 @@
   };
 
   nixpkgs.config = import (commonDir + "/nixpkgs/config.nix");
-  xdg.configFile."nixpkgs/config.nix".source = commonDir + "/nixpkgs/config.nix";
+  xdg.configFile."nixpkgs/config.nix".source = commonDir
+    + "/nixpkgs/config.nix";
 
-  nixpkgs.overlays = import (commonDir + "/nixpkgs/overlays.nix") { inherit unstable; here = commonDir + "/common/nixpkgs"; };
+  nixpkgs.overlays = import (commonDir + "/nixpkgs/overlays.nix") {
+    inherit unstable;
+    here = commonDir + "/common/nixpkgs";
+  };
   xdg.configFile."nixpkgs/overlays.nix".text = let
     inherit (pkgs.lib) hasPrefix removePrefix;
     inherit (pkgs.lib.strings) escapeNixString;
     raw = builtins.readFile (commonDir + "/nixpkgs/overlays.nix");
-    prefix = "{ unstable, here }:\n";
+    prefix = ''
+      { unstable, here }:
+    '';
     processed = assert hasPrefix prefix raw; removePrefix prefix raw;
   in ''
     # TODO: work out how to get (applicable) overlays registered with this instance of nixpkgs-unstable
-    let unstable = import ${escapeNixString (toString inputs.nixpkgs-unstable)} { system = ${escapeNixString pkgs.system}; config = import ${config.xdg.configFile."nixpkgs/config.nix".source}; }; here = /. + ${escapeNixString (toString (commonDir + "/common/nixpkgs"))}; in
+    let unstable = import ${
+      escapeNixString (toString inputs.nixpkgs-unstable)
+    } { system = ${escapeNixString pkgs.system}; config = import ${
+      config.xdg.configFile."nixpkgs/config.nix".source
+    }; }; here = /. + ${
+      escapeNixString (toString (commonDir + "/common/nixpkgs"))
+    }; in
     ${processed}
   '';
 }

@@ -1,6 +1,6 @@
 { pkgs, osConfig, ... }: {
   services.lorri.enable = true;
-  programs.direnv = { 
+  programs.direnv = {
     enable = true;
     enableBashIntegration = true;
   };
