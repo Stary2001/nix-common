@@ -8,9 +8,7 @@
       };
       positions = { filename = "/tmp/positions.yaml"; };
       clients = [{
-        url = "http://bernoulli.taila36e5.ts.net:${
-            toString config.services.loki.configuration.server.http_listen_port
-          }/loki/api/v1/push";
+        url = "http://bernoulli.taila36e5.ts.net:3030/loki/api/v1/push";
       }];
       scrape_configs = [{
         job_name = "journal";
