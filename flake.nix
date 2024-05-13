@@ -17,6 +17,9 @@
         imports =
           [ ./system/locale.nix ./system/ssh-keys.nix ./system/nix.nix ];
       };
+      auto-gc = { ... }: {
+        imports = [ ./system/auto-gc.nix ];
+      };
       prometheus-exporter = { pkgs, ... }: {
         imports = [ ./system/prometheus-exporter.nix ];
       };
