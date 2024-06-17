@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 let flakePath = "/home/stary/sys-${config.networking.hostName}";
 in {
+  # needed with newer git to have it owned by me but have nixos-upgrade do things as root
+  programs.git.config = {
+    safe = { directory = "${flakePath}/.git"; };
+  };
+
   system.autoUpgrade = {
     enable = true;
     allowReboot = true;
